@@ -1,3 +1,18 @@
-from django.shortcuts import render
+from rest_framework import status
+from rest_framework import Response
+from rest_framework import APIView
+from rest_framework import viewsets
+
+from .models import Todo
+from .serializers import TodoSimpleSerializer
 
 # Create your views here.
+class TodoAPIView(APIView) :
+    """
+        Todo total search View
+    """        
+    def get(self, request) :
+        todos = Todo.objects.filter(complete = False)
+        serializer = TodoSimpleSerializer(todos, many = True)
+        return Response(serializer.data, status = status.HTTP_200_OK)
+        
