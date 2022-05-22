@@ -1,3 +1,4 @@
+from tracemalloc import get_object_traceback
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -16,3 +17,12 @@ class TodosAPIView(APIView) :
         serializer = TodoSimpleSerializer(todos, many = True)
         return Response(serializer.data, status = status.HTTP_200_OK)
 
+class TodoAPIView(APIView) :
+    """
+        Todo detail search View
+    """    
+    def get(self, request, pk) :
+        todo = get_object_or_404(Todo, id = pk)
+        serializer = TodoDetailSerializer(todo)
+        return Response(serializer.data, status = status.HTTP_200_OK)
+        
