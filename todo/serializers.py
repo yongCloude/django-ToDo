@@ -23,7 +23,8 @@ class TodoCreateSerializer(serializers.ModelSerializer) :
     """
         Serializer for Todo List create
     """    
-    class Meta :     
+    class Meta : 
         model = Todo
         field = ('title', 'description', 'important')
-    
+
+
